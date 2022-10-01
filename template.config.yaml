@@ -13,4 +13,5 @@ main:
 weewx:
   db: "/var/lib/weewx/weewx.sdb"  # path to weex database file
   max_hours: 720                  # max amount of historical data to import
+  metric: true                    # true: units are reported in the international metric system (celsius, mbar, kph, mm). false: in the US system (inches, miles, fahrenheit).
 

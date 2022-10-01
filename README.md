@@ -15,6 +15,20 @@ Allows for importing weather station data from [WeeWX](http://weewx.com/) to [In
 
 Dependency: Docker installed.
 
+```
+sudo docker run \
+  -d \
+  --name weewx \
+  -v /home/pi/repos/weewx-influx/config.yaml:/app/config.yaml \
+  -v /var/lib/weewx/weewx.sdb:/var/lib/weewx/weewx.sdb \
+  --memory=100m \
+  --pull=always \
+  --restart=always \
+  vdbg/weewx-influx:latest
+```
+
+### Without docker
+
 - pip3: `sudo apt-get install python3-pip` if missing
 
 1. Git clone and cd into directory

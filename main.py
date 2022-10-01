@@ -42,7 +42,7 @@ try:
     influxConnector = InfluxConnector(influx_conf["bucket"], influx_conf["token"], influx_conf["org"], influx_conf["url"])
 
     weewx_conf = config["weewx"]
-    weewxConnector = WeewxConnector(weewx_conf["db"], influx_conf["measurement"])
+    weewxConnector = WeewxConnector(weewx_conf["db"], influx_conf["measurement"], weewx_conf["metric"])
     max_hours: int = weewx_conf["max_hours"]
 
     while True:
