@@ -15,12 +15,20 @@ Allows for importing weather station data from [WeeWX](http://weewx.com/) to [In
 
 Dependency: Docker installed.
 
+1. Locate the `weewx.sdb` file, for example by running `find / -name weewx.sdb`
+2. Download and run the Docker image: `sudo docker run --name weewx-influx -v config.yaml:/app/config.yaml -v /var/lib/weewx/weewx.sdb:/var/lib/weewx/weewx.sdb vdbg/weewx-influx:latest`
+3. Copy template config file from image: `sudo docker cp weewx-influx:/app/template.config.yaml config.yaml`
+4. Edit `config.yaml` by following the instructions in the file
+5. Start the container again to verify the settings are correct: `sudo docker start weewx-influx -i`
+6. Once the settings are finalized, `Ctrl-C` to stop the container, `sudo docker container rm weewx-influx` to delete it
+7. Start the container with final settings:
+
 ```
 sudo docker run \
   -d \
   --name weewx \
-  -v /home/pi/repos/weewx-influx/config.yaml:/app/config.yaml \
-  -v /var/lib/weewx/weewx.sdb:/var/lib/weewx/weewx.sdb \
+  -v /path_to_your/config.yaml:/app/config.yaml \
+  -v /path_to_your/weewx.sdb:/var/lib/weewx/weewx.sdb \
   --memory=100m \
   --pull=always \
   --restart=always \
@@ -29,16 +37,13 @@ sudo docker run \
 
 ### Without docker
 
-- pip3: `sudo apt-get install python3-pip` if missing
+Dependency: Python3 and pip3 installed. `sudo apt-get install python3-pip` if missing on raspbian.
 
 1. Git clone and cd into directory
 2. `cp template.config.yaml config.yaml`
 3. Edit file `config.yaml` by following instructions in file
 4. `pip3 install -r requirements.txt`
-
-## Run
-
-`python3 main.py` or `./main.py`
+5. `python3 main.py` or `./main.py`
 
 ## Alternative
 
@@ -48,5 +53,3 @@ There's a good WeeWX plugin [here](https://github.com/matthewwall/weewx-influx)
 * cons: missing records if InfluxDB is temporarily unreachable, no historical import capabilities.
 
 Also, the alternative plugin works against Influx v1.8 vs. 2.x.
-
-
