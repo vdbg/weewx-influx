@@ -19,7 +19,7 @@ class InfluxConnector:
         result = self.__run_query(query)
         results = list(result)
 
-        if len(results) == 0:
+        if not results:
             logging.info(f"Found no records dated less than {max_hours} hour(s) in influx bucket {self.bucket} measurement {measurement}.")
             return to_time - timedelta(hours=max_hours)
 
@@ -29,16 +29,17 @@ class InfluxConnector:
 
         return fluxtime
 
-    def add_samples(self, records, size: int) -> None:
-        if size < 1:
+    def add_samples(self, records: list) -> None:
+        if not records:
+            logging.debug("No records to import")
             return
 
-        logging.info(f"Importing {size} record(s) to influx")
+        logging.info(f"Importing {len(records)} record(s) to influx")
         with self.__get_client() as client:
             with client.write_api() as write_api:
                 write_api.write(bucket=self.bucket, record=records)
 
-    def __run_query(self, query) -> None:
+    def __run_query(self, query):
         with self.__get_client() as client:
             query_api = client.query_api()
             return query_api.query(query)

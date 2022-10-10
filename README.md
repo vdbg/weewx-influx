@@ -6,7 +6,7 @@ Allows for importing weather station data from [WeeWX](http://weewx.com/) to [In
 
 - Tested with a [Raspberry pi](https://www.raspberrypi.com/products/) 2, but should work on most other distros.
 - [WeeWX](http://weewx.com/) configured on this device.
-- Either [Docker](https://www.docker.com/) or Python 3.7 or later installed on this device.
+- Either [Docker](https://www.docker.com/) or Python 3.7+ installed on this device.
 - [InfluxDB](https://en.wikipedia.org/wiki/InfluxDB) v2 installed on this or another device, and a bucket created in influxDB.
 
 ## Setup
@@ -37,7 +37,7 @@ sudo docker run \
 
 ### Without docker
 
-Dependency: Python3 and pip3 installed. `sudo apt-get install python3-pip` if missing on raspbian.
+Dependency: Python 3.7+ and pip3 installed. `sudo apt-get install python3-pip` if missing on raspbian.
 
 1. Git clone and cd into directory
 2. `cp template.config.yaml config.yaml`

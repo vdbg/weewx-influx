@@ -54,7 +54,7 @@ order by dateTime asc -- asc so that if we fail, we can get missing records next
             record = {
                 "measurement": self.measurement,
                 "tags": {"host": platform.node()},
-                "fields": {field_names[i]: row[i] for i in range(7)},
+                "fields": {fn: row[i] for i, fn in enumerate(field_names)},
                 "time": row[-1]
             }
             records.append(record)

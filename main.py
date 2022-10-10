@@ -49,7 +49,7 @@ try:
         try:
             from_time = influxConnector.get_last_recorded_time(weewxConnector.measurement, max_hours, datetime.utcnow())
             records = weewxConnector.fetch_data(from_time)
-            influxConnector.add_samples(records, len(records))
+            influxConnector.add_samples(records)
 
             if not loop_seconds:
                 exit(0)
